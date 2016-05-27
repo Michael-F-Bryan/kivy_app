@@ -19,7 +19,7 @@ class WeatherRoot(BoxLayout):
         current_weather.location = location
         self.add_widget(current_weather)
 
-    def select_location(self):
+    def show_add_location_form(self):
         self.clear_widgets()
         self.add_widget(AddLocationForm())
 
