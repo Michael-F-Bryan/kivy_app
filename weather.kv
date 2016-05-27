@@ -54,16 +54,26 @@ WeatherRoot:
     on_press: app.root.show_current_weather(self.location)
 
 
-<CurrentWeather@BoxLayout>:
-    location: ['Perth', 'AU']
-    conditions: None
-    temp: None
-    temp_min: None
-    temp_max: None
+<CurrentWeather>:
     orientation: 'vertical'
 
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            text: '{} ({})'.format(*root.location)
+            font_size: '30dp'
+        Label:
+            text: 'Now: {}°C'.format(root.temp)
+
     Label:
-        text: '{} ({})'.format(*root.location)
+        text: root.conditions
+
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            text: 'Low: {}°C'.format(root.temp_min)
+        Label:
+            text: 'High: {}°C'.format(root.temp_max)
 
     BoxLayout:
         orientation: 'horizontal'
