@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivy.factory import Factory
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -49,7 +50,9 @@ class WeatherApp(App):
 
     def show_current_weather(self, location):
         self.clear_widgets()
-        self.add_widget(Label(text=location))
+        current_weather = Factory.CurrentWeather()
+        current_weather.location = location
+        self.add_widget(current_weather)
 
 
 if __name__ == "__main__":
