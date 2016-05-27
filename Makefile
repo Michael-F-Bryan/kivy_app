@@ -3,4 +3,8 @@ PYTHON = python3
 run:
 	$(PYTHON) main.py
 
-.PHONY: run
+commit:
+	git add -u
+	git commit --verbose
+
+.PHONY: run commit
