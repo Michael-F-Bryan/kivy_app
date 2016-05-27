@@ -14,6 +14,7 @@ WeatherRoot:
     orientation: "vertical"
     search_input: search_box
     search_results: search_results_list
+
     BoxLayout:
         height: "40dp"
         size_hint_y: None
@@ -30,12 +31,15 @@ WeatherRoot:
         Button:
             text: "Current Location"
             size_hint_x: 25
-# BEGIN LISTVIEW
+
     ListView:
         id: search_results_list
         adapter:
-            ListAdapter(data=[], cls=main.LocationButton)
-# END LISTVIEW
+            ListAdapter(
+            data=[], 
+            cls=main.LocationButton,
+            args_converter=root.args_converter)
+
     Button:
         height: '40dp'
         size_hint_y: None
@@ -44,18 +48,23 @@ WeatherRoot:
 
 
 <LocationButton>:
-    on_press: app.root.show_current_weather(self.text)
+    text: '{} ({})'.format(*root.location)
+    height: '40dp'
+    size_hint_y: None
+    on_press: app.root.show_current_weather(self.location)
 
 
 <CurrentWeather@BoxLayout>:
-    location: ''
+    location: ['Perth', 'AU']
     conditions: None
     temp: None
     temp_min: None
     temp_max: None
     orientation: 'vertical'
+
     Label:
-        text: root.location
+        text: '{} ({})'.format(*root.location)
+
     BoxLayout:
         orientation: 'horizontal'
         size_hint_y: None

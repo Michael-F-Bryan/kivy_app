@@ -1,12 +1,14 @@
+from collections import namedtuple
 from kivy.app import App
 from kivy.factory import Factory
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.network.urlrequest import UrlRequest
 from kivy.uix.listview import ListItemButton
 
 
+Location = namedtuple('Location', ('city', 'country'))
 API_KEY = 'cf267c34f8652831dc9b714fb0576fbb'
 
 
@@ -19,7 +21,7 @@ class WeatherRoot(BoxLayout):
 
         if location is None and self.current_weather is None:
             # Some convenient default value
-            location = 'Perth (AU)'
+            location =['Perth', 'AU']
 
         if location is not None:
             self.current_weather = Factory.CurrentWeather()
@@ -35,6 +37,7 @@ class WeatherRoot(BoxLayout):
 
 class LocationButton(ListItemButton):
     """A subclass of ListItemButton so we can give it event handlers"""
+    location = ListProperty()
 
 
 class AddLocationForm(BoxLayout):
@@ -56,7 +59,7 @@ class AddLocationForm(BoxLayout):
 
     def found_location(self, request, data):
         """The callback executed when we get a response back"""
-        cities = ['{} ({})'.format(d['name'], d['sys']['country']) 
+        cities = [Location(d['name'], d['sys']['country']) 
                 for d in data['list']]
         self.search_results.item_strings = cities
 
@@ -64,6 +67,8 @@ class AddLocationForm(BoxLayout):
         self.search_results.adapter.data.extend(cities)
         self.search_results._trigger_reset_populate()
 
+    def args_converter(self, index, data_item):
+        return {'location': Location(*data_item)}
 
 class WeatherApp(App):
     """The app itself"""
