@@ -13,6 +13,13 @@ API_KEY = 'cf267c34f8652831dc9b714fb0576fbb'
 class WeatherRoot(BoxLayout):
     """The root widget for the app"""
 
+    def show_current_weather(self, location):
+        self.clear_widgets()
+        current_weather = Factory.CurrentWeather()
+        current_weather.location = location
+        self.add_widget(current_weather)
+
+
 class LocationButton(ListItemButton):
     """A subclass of ListItemButton so we can give it event handlers"""
 
@@ -47,12 +54,6 @@ class AddLocationForm(BoxLayout):
 
 class WeatherApp(App):
     """The app itself"""
-
-    def show_current_weather(self, location):
-        self.clear_widgets()
-        current_weather = Factory.CurrentWeather()
-        current_weather.location = location
-        self.add_widget(current_weather)
 
 
 if __name__ == "__main__":
