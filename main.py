@@ -19,6 +19,11 @@ class WeatherRoot(BoxLayout):
         current_weather.location = location
         self.add_widget(current_weather)
 
+    def select_location(self):
+        self.clear_widgets()
+        self.add_widget(AddLocationForm())
+
+
 
 class LocationButton(ListItemButton):
     """A subclass of ListItemButton so we can give it event handlers"""
