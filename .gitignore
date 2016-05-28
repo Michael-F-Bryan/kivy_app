@@ -58,3 +58,7 @@ docs/_build/
 *.sqlite
 *.sqlite3
 *.log
+
+# Buildozer stuff
+.buildozer/*
+bin/*

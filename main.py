@@ -1,3 +1,5 @@
+__version__ = '0.1.0'
+
 from collections import namedtuple
 from kivy.app import App
 from kivy.properties import (ObjectProperty, ListProperty, StringProperty, 
@@ -91,6 +93,13 @@ class AddLocationForm(BoxLayout):
 
 class WeatherApp(App):
     """The app itself"""
+
+    def on_pause(self):
+        """
+        Do whatever we need to when the screen turns off. If it returns True 
+        then the app can resume. Otherwise it exits.
+        """
+        return True
 
 
 if __name__ == "__main__":
