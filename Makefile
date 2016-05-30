@@ -1,20 +1,22 @@
 RM = rm -rf
 source = $(wildcard *.py *.kv)
 cookie = bin/cookie
+android = android_new
 
+
+build: $(cookie)
 
 serve: build
-	@buildozer android serve || exit 0
+	@buildozer $(android) serve || exit 0
 
 deploy: build
 	@echo Please plug your android phone in
 	@echo
-	buildozer android deploy
+	buildozer $(android) deploy
 
-build: $(cookie)
 
 $(cookie): $(source)
-	buildozer android debug
+	buildozer $(android) debug
 	touch $(cookie)
 
 commit:
@@ -22,6 +24,7 @@ commit:
 	git commit --verbose
 
 clean:
-	$(RM) ./bin/*
+	$(RM) $(cookie)
+	$(RM) bin/*
 
 .PHONY: commit clean
